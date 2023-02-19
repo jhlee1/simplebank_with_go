@@ -5,5 +5,5 @@ sql:
       schema: "./db/migration/"
       gen:
           go:
-              package: "simplebank"
+              package: "db"
               out: "db/sqlc"
