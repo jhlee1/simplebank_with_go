@@ -19,7 +19,7 @@ type Account struct {
 
 type Entry struct {
 	ID        int64
-	AccountID sql.NullInt64
+	AccountID int64
 	// can be negative or positive
 	Amount    int64
 	CreatedAt time.Time
@@ -27,8 +27,8 @@ type Entry struct {
 
 type Transfer struct {
 	ID            int64
-	FromAccountID sql.NullInt64
-	ToAccountID   sql.NullInt64
+	FromAccountID int64
+	ToAccountID   int64
 	// must be positive
 	Amount    int64
 	CreatedAt sql.NullTime
