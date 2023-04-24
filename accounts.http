@@ -1,0 +1,44 @@
+### Create an account
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+{
+  "owner": "Example User",
+  "currency": "USD"
+}
+
+### Create an account with empty fields
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+{
+  "owner": "",
+  "currency": ""
+}
+
+### Create an account with incorrect currency
+POST http://localhost:8080/accounts
+Content-Type: application/json
+
+{
+  "owner": "Example User",
+  "currency": "ASDF"
+}
+
+### Get an account
+GET http://localhost:8080/accounts/1
+
+### Get an account that does not exists
+GET http://localhost:8080/accounts/10000
+
+### Get an account with invalid account id
+GET http://localhost:8080/accounts/-1
+
+### Get a list of accounts
+GET http://localhost:8080/accounts?page_id=1&page_size=5
+
+### Get a list of accounts with invalid parameters
+GET http://localhost:8080/accounts?page_id=1&page_size=500000
+
+### Get an empty list of accounts
+GET http://localhost:8080/accounts?page_id=100000000&page_size=5
