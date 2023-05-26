@@ -13,7 +13,7 @@ var testQueries *Queries
 var testDB *sql.DB
 
 func TestMain(m *testing.M) {
-	config, err := util.LoadConfig(".") // "." because the config file is in the current folder
+	config, err := util.LoadConfig("../../") // "." because the config file is in the current folder
 	if err != nil {
 		log.Fatal("cannot load config:", err)
 	}
