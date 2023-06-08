@@ -8,3 +8,30 @@ Content-Type: application/json
   "email": "example@gmail.com",
     "password": "example_password"
 }
+
+### Login
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "username": "ExampleUsername",
+  "password": "example_password"
+}
+
+### Login with wrong password
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "username": "ExampleUsername",
+  "password": "example_passwordddddddddddd"
+}
+
+### Login with wrong username
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "username": "ExampleUsernameeeeeeeeeee",
+  "password": "example_password"
+}
