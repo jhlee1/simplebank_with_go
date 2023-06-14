@@ -18,5 +18,4 @@
 ## create a migration version
 ```bash
 $ migrate create -ext sql -dir db/migrations -seq initial_schema
-``` 
 ```
