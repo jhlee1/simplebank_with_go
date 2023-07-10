@@ -103,6 +103,65 @@ $ docker container inspect postgres15
 $ docker run --name simplebank --network bank-network -p 8080:8080 -e GIN_MODE=release -e DB_SOURCE="postgresql://root:mysecretpassword@postgres15:5432/simple_bank?sslmode=disable" simplebank:latest
 ```
 
+## How to setup github actions to build and push docker image to aws ECR
+I have followed [this guide](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services)
+Most tutorials and resources use `user` and `user group`. However, the recent [aws-credential](https://github.com/aws-actions/configure-aws-credentials) has changed the way of authentication. It requires to use OIDC (OpenID Connect).
+
+### Create a new Identity provider
+1. Go to IAM > Identity providers > Add provider
+2. Select OpenID Connect
+3. Set the Provider URL to `https://token.actions.githubusercontent.com`
+4. Set the Audience to `sts.amazonaws.com`
+
+### Assign a role to the Identity provider
+1. Go to IAM > Roles > Create role
+2. Select Web identity
+3. Select the Identity provider created above
+4. Set the Audience to `sts.amazonaws.com`
+5. Add the permission `AmazonEC2ContainerRegistryFullAccess`
+6. Set the role name to `anything you want`
+
+### Add ARN to the deployment yaml file
+
+1. Copy the ARN from the role created above
+2. Add the ARN to aws-credential step in the yaml file
+3. Add permissions to the job
+
+This is a part of the deployment yaml file
+
+```yaml
+name: Deploy to production
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build image
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2 # More information on this action can be found below in the 'AWS Credentials' section
+        with:
+          role-to-assume: arn:aws:iam::847768247459:role/github-action
+          aws-region: us-east-2
+  
+```
+
+
+4. 
+
+
+
+
 
 
 
