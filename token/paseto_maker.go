@@ -78,10 +78,6 @@ func (p PasetoMaker) VerifyToken(token string) (*Payload, error) {
 		return nil, err
 	}
 
-	if err != nil {
-		return nil, err
-	}
-
 	return &Payload{Username: username, ID: id, IssuedAt: issuedAt, ExpiredAt: expiredAt}, nil
 }
 
