@@ -156,15 +156,23 @@ jobs:
   
 ```
 
+## Create the DB using RDS
+## Set the env variables using Secrets Manager from aws
 
-4. 
+Create a random symmetric key using
+```shell
+openssl rand -hex 64 | head -c 32
+```
 
-
-
-
-
-
-
+Get the secret value using awscli
+```shell
+aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text
+```
+Install jq to parse the json
+```shell
+brew install jq
+aws secretsmanager get-secret-value --secret-id simple_bank --query SecretString --output text | jq -r 'to_entries|map("\(.key)=\(.value)")|.[]' > app.env
+```
 
 
 
